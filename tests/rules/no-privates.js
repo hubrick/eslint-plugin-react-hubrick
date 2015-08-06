@@ -1,6 +1,5 @@
 /**
  * @fileoverview Tests for 'no-privates' rule (underscore in the beginning of the object members)
- * @author Bogdan Dimofte
  */
 'use strict';
 
@@ -10,7 +9,7 @@ require('babel-eslint');
 
 var ruleTester = new RuleTester();
 
-ruleTester.run('display-name', rule, {
+ruleTester.run('no-privates', rule, {
 
   valid: [['',
       'var Foo = React.createClass({',
@@ -21,7 +20,7 @@ ruleTester.run('display-name', rule, {
     ], ['',
       'class Foo extends React.Component {',
       '  static staticProperty = 1;',
-      '  property = 2;',
+      '  aProperty = 2;',
       '  static staticHelper() {',
       '    return \'Hello World\';',
       '  }',
@@ -36,9 +35,6 @@ ruleTester.run('display-name', rule, {
         return {
           code: code.join('\n'),
           parser: 'babel-eslint',
-          options: [{
-            someOption: false
-          }],
           ecmaFeatures: {
             classes: true,
             jsx: true
@@ -60,12 +56,18 @@ ruleTester.run('display-name', rule, {
     '}'
   ], ['',
     'class Foo extends React.Component {',
-    '  static _staticProperty = 1;',
-    '  property = 2;',
+    '  constructor() {',
+    '    this._aProperty = 1;',
+    '  }',
     '}'
   ], ['',
     'class Foo extends React.Component {',
-    '  _property = 2;',
+    '  static _staticProperty = 1;',
+    '  aProperty = 2;',
+    '}'
+  ], ['',
+    'class Foo extends React.Component {',
+    '  _aProperty = 2;',
     '}'
   ]
   ].map(function(code) {
@@ -77,7 +79,7 @@ ruleTester.run('display-name', rule, {
         jsx: true
       },
       errors: [{
-        message: 'Underscore notation for private members is not allowed'
+        message: 'Underscore notation to mark "private" members is not allowed'
       }]
     };
   })

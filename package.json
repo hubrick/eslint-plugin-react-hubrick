@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint ./",
-    "test": "mocha tests/rules/*.js --reporter progress"
+    "test": "mocha tests/rules/*.js --reporter spec"
   },
   "files": [
     "LICENSE",
