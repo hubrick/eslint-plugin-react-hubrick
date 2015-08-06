@@ -14,15 +14,21 @@ ruleTester.run('no-privates', rule, {
   valid: [['',
       'var Foo = React.createClass({',
       '  someHelper: function() {',
-      '    return <div>Hello {this.props.name}</div>;',
+      '    return 5;',
+      '  },',
+      '  render: function() {',
+      '    return <div>Hello</div>;',
       '  }',
-      '});'
+        '});'
     ], ['',
       'class Foo extends React.Component {',
       '  static staticProperty = 1;',
       '  aProperty = 2;',
       '  static staticHelper() {',
       '    return \'Hello World\';',
+      '  }',
+      '  render () {',
+      '    return <div>Hello</div>;',
       '  }',
       '}'
     ], ['',
@@ -43,33 +49,48 @@ ruleTester.run('no-privates', rule, {
       }),
 
   invalid: [['',
-    'var Foo = React.createClass({',
-    '  _someHelper: function() {',
-    '    return <div>Hello {this.props.name}</div>;',
-    '  }',
-    '});'
-  ], ['',
-    'class Foo extends React.Component {',
-    '  static _staticHelper() {',
-    '    return \'Hello World\';',
-    '  }',
-    '}'
-  ], ['',
-    'class Foo extends React.Component {',
-    '  constructor() {',
-    '    this._aProperty = 1;',
-    '  }',
-    '}'
-  ], ['',
-    'class Foo extends React.Component {',
-    '  static _staticProperty = 1;',
-    '  aProperty = 2;',
-    '}'
-  ], ['',
-    'class Foo extends React.Component {',
-    '  _aProperty = 2;',
-    '}'
-  ]
+      'var Foo = React.createClass({',
+      '  _someHelper: function() {',
+      '    return 1;',
+      '  },',
+      '  render: function() {',
+      '    return <div>Hello</div>;',
+      '  }',
+      '});'
+    ], ['',
+      'class Foo extends React.Component {',
+      '  static _staticHelper() {',
+      '    return \'Hello World\';',
+      '  }',
+      '  render() {',
+      '    return <div>Hello</div>;',
+      '  }',
+      '}'
+    ], ['',
+      'class Foo extends React.Component {',
+      '  constructor() {',
+      '    this._aProperty = 1;',
+      '  }',
+      '  render() {',
+      '    return <div>{this.aProperty}</div>;',
+      '  }',
+      '}'
+    ], ['',
+      'class Foo extends React.Component {',
+      '  static _staticProperty = 1;',
+      '  aProperty = 2;',
+      '  render() {',
+      '    return <div>{this.aProperty}</div>;',
+      '  }',
+      '}'
+    ], ['',
+      'class Foo extends React.Component {',
+      '  _aProperty = 2;',
+      '  render() {',
+      '    return <div>{this.aProperty}</div>;',
+      '  }',
+      '}'
+    ]
   ].map(function(code) {
     return {
       code: code.join('\n'),
