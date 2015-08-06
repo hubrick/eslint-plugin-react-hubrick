@@ -1,0 +1,38 @@
+{
+  "name": "eslint-plugin-react-tweaks",
+  "version": "0.0.1",
+  "author": "Bogdan Dimofte",
+  "description": "A collection of custom eslint rules for react components, mostly a matter of taste",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint ./",
+    "test": "mocha tests/rules/*.js --reporter progress"
+  },
+  "files": [
+    "LICENSE",
+    "README.md",
+    "index.js",
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hubrick/eslint-plugin-react-tweaks"
+  },
+  "homepage": "https://github.com/hubrick/eslint-plugin-react-tweaks",
+  "bugs": "https://github.com/hubrick/eslint-plugin-react-tweaks",
+  "devDependencies": {
+    "babel-eslint": "^4.0.5",
+    "eslint": "^1.0.0",
+    "mocha": "^2.2.5"
+  },
+  "peerDependencies": {
+    "eslint": ">=0.8.0 || ~1.0.0-rc-0"
+  },
+  "keywords": [
+    "eslint",
+    "eslint-plugin",
+    "eslintplugin",
+    "react"
+  ],
+  "license": "MIT"
+}
