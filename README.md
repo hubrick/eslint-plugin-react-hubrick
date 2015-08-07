@@ -19,7 +19,7 @@ Enable then the rules that you would like to use. So far, only one is available:
 ```json
 {
   "rules": {
-    "react/no-privates": 2,
+    "react-hubrick/no-privates": 2,
   }
 }
 ```
